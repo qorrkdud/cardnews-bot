@@ -45,7 +45,9 @@ def t(s, mark="hl"):
     s = html.escape(str(s or ""))
     s = s.replace("\n", "<br>")
     if mark == "paper":
-        s = s.replace("[[", '<span style="background:var(--paper);padding:0 12px">')
+        # 흰 박스가 윗줄 글자를 덮지 않도록 박스 윗부분 16%는 비워 둡니다
+        s = s.replace("[[", '<span style="background:linear-gradient(transparent 16%,var(--paper) 16%);'
+                            'padding:0 12px;-webkit-box-decoration-break:clone;box-decoration-break:clone">')
     else:
         s = s.replace("[[", '<span class="hl">')
     return s.replace("]]", "</span>")
@@ -58,6 +60,7 @@ class Ctx:
         src = data.get("source", {})
         self.src_short = f"출처 · {src.get('name', '')} ({src.get('date', '')})" if src else ""
         self.credit = data.get("photo", {}).get("credit", "")
+        self.item_photos, self.has_item_photo = [], False
 
     def foot(self, card, no, photo_used, color=""):
         s = card.get("src") or self.src_short
@@ -72,6 +75,20 @@ class Ctx:
                     f'{html.escape(label)}</b><span>{no:02d} / {self.total:02d}</span></div>')
         return f'<div class="top"><b>{html.escape(label)}</b><span>{no:02d} / {self.total:02d}</span></div>'
 
+    def item_photo(self, rel):
+        """항목 사진을 build/img 로 복사하고 HTML 에서 쓸 주소를 돌려줍니다 (없으면 None)"""
+        if not rel:
+            return None
+        p = ROOT / rel
+        if not p.exists():
+            print(f"  ※ 항목 사진이 없어요: {rel}")
+            return None
+        name = f"item_{len(self.item_photos) + 1}{p.suffix.lower()}"
+        shutil.copyfile(p, BUILD / "img" / name)
+        self.item_photos.append(name)
+        self.has_item_photo = True
+        return f"img/{name}"
+
     def photo(self, style, tag=""):
         if not self.has_photo:
             return ""
@@ -80,17 +97,31 @@ class Ctx:
 
 
 # ---------------------------------------------------------------- 카드 종류별 틀
+def cover_visual(c, card):
+    """표지 그림: cover_photo(배경 없는 연출 이미지)가 있으면 테두리 없이 표지 위에 바로 놓고,
+    없으면 기존처럼 사진 액자를 씁니다."""
+    scene = c.item_photo(card.get("cover_photo"))
+    if scene:
+        tag = html.escape("PHOTO · " + card.get("photo_tag", "PRODUCT"))
+        return (f'<div style="position:absolute;right:10px;top:560px;width:680px;height:680px;'
+                f'background:url({scene}) center bottom/contain no-repeat"></div>'
+                f'<span style="position:absolute;right:84px;top:1196px;font-family:var(--mono);font-size:20px;'
+                f'font-weight:700;background:var(--ink);color:var(--cream);padding:5px 14px;border-radius:99px">{tag}</span>')
+    return ('<div class="blob" style="width:260px;height:260px;right:30px;top:640px;background:var(--butter)"></div>'
+            + c.photo("position:absolute;right:84px;top:700px;width:520px;height:520px;box-shadow:14px 14px 0 var(--ink)",
+                      "PHOTO · " + card.get("photo_tag", "PRODUCT")))
+
+
 def cover(c, card, no):
     title = t(card.get("display_title") or card["title"], "paper")
     return f'''<section class="card" style="background:var(--peach)">
   <div class="top" style="border-color:#E5B9A3"><b>{SERIES}</b><span>{html.escape(card.get("section", "신상 편"))}</span></div>
   <div style="position:relative;margin-top:84px">
     <div class="eb" style="color:var(--ink)">{html.escape(card.get("eyebrow", "BEAUTY RECIPE"))}</div>
-    <h1 style="margin-top:20px">{title}</h1>
+    <h1 style="margin-top:20px;line-height:1.24">{title}</h1>
     <p style="font-size:38px;line-height:1.5;font-weight:600;margin-top:36px">{t(card.get("body"))}</p>
   </div>
-  <div class="blob" style="width:260px;height:260px;right:30px;top:640px;background:var(--butter)"></div>
-  {c.photo("position:absolute;right:84px;top:700px;width:520px;height:520px;box-shadow:14px 14px 0 var(--ink)", "PHOTO · " + card.get("photo_tag", "PRODUCT"))}
+  {cover_visual(c, card)}
   <div class="foot" style="color:var(--ink)"><span>{html.escape(card.get("tagline", ""))}</span><span>01 / {c.total:02d}  swipe →</span></div>
 </section>'''
 
@@ -100,8 +131,9 @@ def checklist(c, card, no):
     pv = card.get("preview")
     prev = ""
     if pv:
-        prev = f'''<div class="rc" style="margin-top:36px;display:flex;gap:30px;align-items:center;background:var(--peach2)">
-    {c.photo("flex:none;width:170px;height:170px;border-radius:24px")}
+        prev = f'''<div class="rc" style="margin-top:26px;margin-bottom:22px;display:flex;gap:30px;align-items:center;background:var(--peach2);padding:22px 36px">
+    {(f'<div style="flex:none;width:250px;height:196px;background:url({c.item_photo(pv.get("photo"))}) center/contain no-repeat"></div>'
+      if pv.get("photo") and c.item_photo(pv.get("photo")) else c.photo("flex:none;width:170px;height:170px;border-radius:24px"))}
     <div><span style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--deep)">{html.escape(pv.get("label", "TODAY'S RECIPE"))}</span><b style="display:block;font-size:40px;font-weight:900;margin-top:6px">{t(pv.get("title"))}</b><p style="font-size:28px;color:var(--soft);margin-top:4px">{t(pv.get("desc"))}</p></div>
   </div>'''
     return f'''<section class="card">
@@ -120,21 +152,24 @@ def list_(c, card, no):
     items = card.get("items", [])
     for k, it in enumerate(items, 1):
         bg = ' style="background:var(--peach2)"' if k == len(items) else ""
-        rows.append(f'<div class="ingr"{bg}><span class="n">{k:02d}</span><div><b>{t(it.get("name"))}</b>'
-                    f'<small>{t(it.get("desc"))}</small></div></div>')
+        thumb = c.item_photo(it.get("photo"))   # 항목별 제품 사진 (있으면 오른쪽에 작게)
+        cls = "ingr th3" if thumb else "ingr"
+        th = f'<div class="pth" style="background-image:url({thumb})"></div>' if thumb else ""
+        rows.append(f'<div class="{cls}"{bg}><span class="n">{k:02d}</span><div><b>{t(it.get("name"))}</b>'
+                    f'<small>{t(it.get("desc"))}</small></div>{th}</div>')
     return f'''<section class="card">
   {c.top(card.get("label", "INGREDIENTS"), no)}
   <div style="display:flex;gap:40px;align-items:flex-end;margin-top:60px">
     <div style="flex:1">
       <div class="eb">{html.escape(card.get("eyebrow", ""))}</div>
       <h2 style="margin-top:14px">{t(card.get("display_title") or card["title"])}</h2>
-      <p style="font-size:30px;color:var(--soft);margin-top:20px;line-height:1.4;font-weight:600">{t(card.get("subtitle"))}</p>
+      {f'<p style="font-size:30px;color:var(--soft);margin-top:20px;line-height:1.4;font-weight:600">{t(card.get("subtitle"))}</p>' if card.get("subtitle") else ""}
     </div>
-    {c.photo("flex:none;width:300px;height:300px", "PHOTO")}
+    {"" if (card.get("no_photo") or any("pth" in r for r in rows)) else c.photo(f"flex:none;width:{240 if len(items) > 3 else 300}px;height:{240 if len(items) > 3 else 300}px", "PHOTO")}
   </div>
-  <div style="display:flex;flex-direction:column;gap:12px;margin-top:34px">{"".join(rows)}</div>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-top:{24 if len(items) > 3 else 34}px">{"".join(rows)}</div>
   <div class="why" style="margin-top:24px;margin-bottom:24px;font-size:32px"><em>{html.escape(card.get("note_label", "BRAND SAYS"))}</em>{t(card.get("body"))}</div>
-  {c.foot(card, no, c.has_photo)}
+  {c.foot(card, no, (c.has_photo and not card.get("no_photo")) or any("pth" in r for r in rows))}
 </section>'''
 
 
@@ -157,7 +192,7 @@ def flow(c, card, no):
     return f'''<section class="card" style="background:var(--butter)">
   <div class="top" style="border-color:#E9D28C"><b>{html.escape(card.get("label", "HOW IT WORKS"))}</b><span>{no:02d} / {c.total:02d}</span></div>
   <span class="stepbig" style="margin-top:64px">{html.escape(card.get("tag", ""))}</span>
-  <h2 style="margin-top:20px">{t(card.get("display_title") or card["title"], "paper")}</h2>
+  <h2 style="margin-top:20px;line-height:1.3">{t(card.get("display_title") or card["title"], "paper")}</h2>
   <div class="flow">{"".join(parts)}</div>
   <div class="rc" style="margin-top:46px"><div style="font-size:34px;line-height:1.55">{t(card.get("body"))}</div>{st}</div>
   {c.foot(card, no, any(s.get("icon") == "photo" for s in card.get("steps", [])) and c.has_photo, "var(--ink)")}
@@ -165,18 +200,27 @@ def flow(c, card, no):
 
 
 def compare(c, card, no):
+    used = []
+
     def side(s, bg, tagbg):
+        pic = c.item_photo(s.get("photo"))      # 이모지 대신 제품 사진 (있으면)
+        if pic:
+            used.append(pic)
+            vis = (f'<div style="width:100%;height:210px;border-radius:20px;border:2.5px solid var(--ink);'
+                   f'background:{s.get('photo_bg', '#fff')} url({pic}) center/contain no-repeat"></div>')
+        else:
+            vis = f'<span class="big">{html.escape(s.get("icon", ""))}</span>'
         return (f'<div class="rc"{bg}><span class="tagx" style="background:{tagbg}">{html.escape(s.get("tag", ""))}</span>'
-                f'<span class="big">{html.escape(s.get("icon", ""))}</span><b>{t(s.get("title"))}</b><p>{t(s.get("desc"))}</p></div>')
+                f'{vis}<b>{t(s.get("title"))}</b><p>{t(s.get("desc"))}</p></div>')
     tip = card.get("tip")
-    tip_html = f'<div class="why" style="margin-top:36px"><em>{html.escape(card.get("tip_label", "TIP"))}</em>{t(tip)}</div>' if tip else ""
+    tip_html = f'<div class="why" style="margin-top:28px;margin-bottom:20px"><em>{html.escape(card.get("tip_label", "TIP"))}</em>{t(tip)}</div>' if tip else ""
     return f'''<section class="card">
   {c.top(card.get("label", "WHEN TO USE"), no)}
   <div class="eb" style="margin-top:64px">{html.escape(card.get("eyebrow", ""))}</div>
   <h2 style="margin-top:14px">{t(card.get("display_title") or card["title"])}</h2>
   <div class="vs">{side(card.get("left", {}), "", "var(--ink)")}{side(card.get("right", {}), ' style="background:var(--peach2)"', "var(--deep)")}</div>
   {tip_html}
-  {c.foot(card, no, False)}
+  {c.foot(card, no, bool(used))}
 </section>'''
 
 
@@ -188,7 +232,8 @@ def steps(c, card, no):
         else:
             ic = f'<span class="e">{html.escape(s.get("icon", "") if s.get("icon") != "photo" else "🧴")}</span>'
         bg = ' style="background:var(--peach2)"' if k == len(card.get("steps", [])) else ""
-        rows.append(f'<div class="routine"{bg}><span class="n">STEP {k}</span><div><b>{t(s.get("title"))}</b>'
+        word = html.escape(card.get("step_word", "STEP"))
+        rows.append(f'<div class="routine"{bg}><span class="n">{word} {k}</span><div><b>{t(s.get("title"))}</b>'
                     f'<small>{t(s.get("desc"))}</small></div>{ic}</div>')
     return f'''<section class="card">
   {c.top(card.get("label", "HOW TO USE"), no)}
@@ -304,7 +349,15 @@ def main():
         print((r.stdout or "")[-800:], (r.stderr or "")[-800:])
         sys.exit(1)
     OUT.mkdir(exist_ok=True)
+    cards = sorted(data["cards"], key=lambda x: x["no"])
     for k, f in enumerate(shots, 1):
+        own = cards[k - 1].get("image")            # 직접 만든 그림을 쓰기로 한 카드는 그 그림으로
+        if own and (ROOT / own).exists():
+            from PIL import Image
+            Image.open(ROOT / own).convert("RGB").resize((1080, 1350), Image.LANCZOS).save(f)
+            print(f"  {k}장은 직접 넣은 그림을 썼어요: {own}")
+        elif own:
+            print(f"  ※ {k}장 그림을 찾지 못해서 기본 디자인으로 만들었어요: {own}")
         shutil.copyfile(f, OUT / f"card_{k:02d}.png")
     shutil.copyfile(shots[0], OUT / "cover.png")
     shutil.rmtree(tmp, ignore_errors=True)

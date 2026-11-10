@@ -1,56 +1,208 @@
-{"source":{"name":"코스인코리아","title":"아모레퍼시픽, 228K PDRN 담은 에이피 뷰티 크림 미스트 출시","date":"2026.11.05","link":"http://www.cosinkorea.com/news/article.html?no=58672"},
- "extra_sources":[
-  {"name":"아모레퍼시픽 스토리","title":"에이피 뷰티, 듀얼 리페어 리프트 M.D. 크림 미스트 출시","date":"2026.11.05","link":"https://stories.amorepacific.com/%EC%95%84%EB%AA%A8%EB%A0%88%ED%8D%BC%EC%8B%9C%ED%94%BD-%EC%97%90%EC%9D%B4%ED%94%BC-%EB%B7%B0%ED%8B%B0-%EB%93%80%EC%96%BC-%EB%A6%AC%ED%8E%98%EC%96%B4-%EB%A6%AC%ED%94%84%ED%8A%B8-m-d-%ED%81%AC%EB%A6%BC/"},
-  {"name":"CJ온스타일 「미스트 사용법, 팁부터 주의사항까지 총정리」 (일반 미스트 팁)","link":"https://display.cjonstyle.com/nfront/content/info/%EB%AF%B8%EC%8A%A4%ED%8A%B8-%EC%82%AC%EC%9A%A9%EB%B2%95/index.html"}
+{
+ "source": {
+  "name": "Allure",
+  "title": "9 Best Hyaluronic Acid Serums 2026 for Dry, Dehydrated Skin",
+  "date": "2026.11.09 갱신",
+  "link": "https://www.allure.com/gallery/best-hyaluronic-acid-serum"
+ },
+ "extra_sources": [
+  {
+   "name": "Anua 공식몰(anua.com) 제품 페이지",
+   "date": "2026.11.10 확인"
+  }
  ],
- "photo":{"file":"assets/products/apbeauty_cream_mist.jpg","credit":"아모레퍼시픽 (코스인코리아 기사 사진)"},
- "story":"고민 → 해결 재료 → 원리 → 이렇게 뿌려요 → 언제 쓰나요 → 정리",
- "cards":[
-  {"no":1,"layout":"cover","title":"피부가 당기고 예민한 날?","body":"뿌리는 크림 미스트로\n풀어볼게요",
-   "display_title":"피부가 당기고\n[[예민한 날?]]","eyebrow":"SKIN CONCERN RECIPE","section":"신상 편","photo_tag":"AP BEAUTY","tagline":"고민 · 재료 · 원리 · 사용법"},
-  {"no":2,"layout":"checklist","title":"이런 고민 있죠?","body":"이 미스트는 피부과 관리 뒤 건조하고 예민해진 피부를 생각해서 만들었대요.",
-   "display_title":"이런 [[고민]] 있죠?","label":"MY CONCERN","eyebrow":"STEP 0 · 고민 체크",
-   "items":["피부가 건조하고 당기는 느낌","예민해서 뭘 바르기 조심스러워요","피부과 관리 받은 뒤라 더 신경 쓰여요"],
-   "note_label":"그래서","preview":{"label":"TODAY'S RECIPE","title":"뿌리는 크림 미스트","desc":"다음 장에서 재료부터 볼게요 →"},
-   "src":"출처 · 아모레퍼시픽 스토리, 코스인코리아 (2026.11.05)"},
-  {"no":3,"layout":"list","title":"해결 재료는 이것","body":"주재료는 PDRN과 엑소인이에요. 히알루론산도 더해 수분과 윤기를 챙겼다고 브랜드가 설명해요.",
-   "display_title":"크림을 담은\n[[미스트 1병]]","label":"INGREDIENTS","eyebrow":"해결 재료","subtitle":"에이피 뷰티\n듀얼 리페어 리프트 M.D. 크림 미스트",
-   "items":[{"name":"228K PDRN","desc":"고순도 PDRN · 주요 성분"},{"name":"엑소인 (EXOYNE™)","desc":"주요 성분"},{"name":"히알루론산 (TRF H.A.)","desc":"고분자 히알루론산 · 수분 공급"}],
-   "note_label":"BRAND SAYS"},
-  {"no":4,"layout":"flow","title":"뿌리면 크림 막으로","body":"뿌린 뒤 피부 위에서 크림 같은 얇은 막으로 바뀐대요. 크림 입자를 아주 잘게 만들어 고르게 닿게 했대요.",
-   "display_title":"뿌리면\n[[크림 막으로]] 변신","label":"HOW IT WORKS","tag":"조리 원리",
-   "steps":[{"icon":"photo","label":"칙 뿌리면","en":"MIST"},{"icon":"🍦","label":"크림처럼","en":"CREAM"},{"icon":"🛡️","label":"얇은 막","en":"FILM"}],
-   "stat":{"value":"1,800","unit":"배","label":"모공보다 약 1,800배 작은\n크림 입자","note":"브랜드 설명 기준"}},
-  {"no":5,"layout":"steps","title":"이렇게 뿌려요","body":"일반 미스트 사용 팁이에요. 이 제품의 정확한 양과 순서는 상세 페이지에서 꼭 확인해 주세요.",
-   "display_title":"미스트, [[이렇게 뿌려요]]","label":"HOW TO USE","tag":"기본 레시피 · 4 STEP",
-   "steps":[
-    {"title":"눈 감고 20~30cm 떨어져서","desc":"가까이 뿌리면 물방울이 맺힐 수 있어요","icon":"photo"},
-    {"title":"2~3번만 칙칙","desc":"한 번에 많이 뿌리지 않기","icon":"💨"},
-    {"title":"10~20초 기다리기","desc":"뿌리자마자 문지르지 않기","icon":"⏱️"},
-    {"title":"손바닥으로 가볍게 누르기","desc":"문지르지 말고 톡톡 눌러 주기","icon":"🤲"}],
-   "note_label":"참고","src":"출처 · CJ온스타일 미스트 사용법 (일반 팁)"},
-  {"no":6,"layout":"compare","title":"언제 쓰면 좋아요?","body":"평소 스킨케어에도, 피부과 관리 뒤 집중 케어에도 쓸 수 있게 만들었대요.",
-   "display_title":"평소에도,\n[[관리 받은 날에도]]","label":"WHEN TO USE","eyebrow":"언제 쓰나요",
-   "left":{"tag":"☀️ DAILY","icon":"🧴","title":"평소\n스킨케어","desc":"매일 하는 루틴 안에서"},
-   "right":{"tag":"🌙 AFTER CARE","icon":"💧","title":"피부과\n관리 뒤","desc":"건조하고 예민해진 날 집중 케어로"},
-   "tip_label":"주의","tip":"사용 중 붉어짐·가려움 등 이상이 있으면 사용을 멈춰 주세요.",
-   "src":"출처 · 아모레퍼시픽 스토리 (2026.11.05)"},
-  {"no":7,"layout":"recap","title":"고민 → 레시피 정리","body":"출처: 코스인코리아, 「아모레퍼시픽, 228K PDRN 담은 에이피 뷰티 크림 미스트 출시」, 2026.11.05 / 아모레퍼시픽 스토리, 2026.11.05\n팔로우하면 뷰티 고민을 레시피처럼 쉽게 풀어 드려요",
-   "display_title":"고민 →\n[[레시피]] 정리",
-   "rows":[["건조·예민한 피부","뿌리는 크림 미스트"],["무엇이 들었나","PDRN·엑소인·히알루론산"],["어떻게 작용","크림 같은 얇은 막"],["어떻게 뿌리나","20~30cm · 2~3번 · 톡톡"],["어디서 사요","온라인몰·백화점 매장"]],
-   "cta":"🔖 저장 · 팔로우하면 뷰티 고민을 레시피처럼 쉽게 풀어 드려요",
-   "caution":"※ 가격·올리브영 판매 여부는 판매처에서 확인하세요 · 사용감은 사람마다 달라요"}
+ "photo": {
+  "file": "assets/products/2026-11-10_ha_collage.jpg",
+  "credit": "각 브랜드 공식몰"
+ },
+ "story": "고민(크림 발라도 당김) → 히알루론산 원리 → 바르는 순서 → 추천 세럼 3가지 → 예민 피부 체크 → 정리",
+ "cards": [
+  {
+   "no": 1,
+   "layout": "cover",
+   "title": "크림 발라도 당긴다면?",
+   "body": "히알루론산 세럼 레시피로\n풀어볼게요",
+   "display_title": "크림 발라도\n[[당긴다면?]]",
+   "eyebrow": "HYDRATION RECIPE",
+   "section": "보습 편",
+   "photo_tag": "3 PICKS",
+   "tagline": "고민 · 원리 · 바르기 · 재료",
+   "cover_photo": "assets/products/2026-11-10_ha_cover_scene.png"
+  },
+  {
+   "no": 2,
+   "layout": "checklist",
+   "title": "이런 고민 있죠?",
+   "body": "보습 성분 히알루론산은 ‘언제·어떻게’ 바르느냐가 포인트래요.",
+   "display_title": "이런 [[고민]] 있죠?",
+   "label": "MY CONCERN",
+   "eyebrow": "STEP 0 · 고민 체크",
+   "items": [
+    "세안하고 조금만 지나도 당겨요",
+    "크림을 발라도 금방 건조해요",
+    "세럼은 언제 바르는지 헷갈려요"
+   ],
+   "note_label": "정답은",
+   "preview": {
+    "label": "TODAY'S RECIPE",
+    "title": "히알루론산 세럼 레시피",
+    "desc": "다음 장에서 원리부터 볼게요 →",
+    "photo": "assets/products/2026-11-10_ha_row.png"
+   }
+  },
+  {
+   "no": 3,
+   "layout": "flow",
+   "title": "히알루론산이 뭐예요?",
+   "body": "히알루론산은 수분을 붙잡아 두는 보습 성분이에요. 나이가 들수록 몸속 양이 줄어든대요.",
+   "display_title": "히알루론산,\n[[물을 붙잡는]] 성분",
+   "label": "HOW IT WORKS",
+   "tag": "조리 원리",
+   "steps": [
+    {
+     "icon": "💧",
+     "label": "수분 붙잡기",
+     "en": "HOLD WATER"
+    },
+    {
+     "icon": "🫧",
+     "label": "촉촉한 피부",
+     "en": "HYDRATED"
+    },
+    {
+     "icon": "🧴",
+     "label": "크림으로 잠그기",
+     "en": "LOCK IN"
+    }
+   ],
+   "image": "assets/cards/2026-11-10_03_how_it_works.png"
+  },
+  {
+   "no": 4,
+   "layout": "steps",
+   "title": "이렇게 발라요",
+   "body": "피부과 전문의 조언이에요. 세럼은 살짝 촉촉한 피부에 먼저, 크림은 그 위에 발라요.",
+   "display_title": "세럼, [[이 순서로]]",
+   "label": "HOW TO USE",
+   "tag": "피부과 전문의 레시피 · 3 STEP",
+   "steps": [
+    {
+     "title": "세안 후 살짝 촉촉할 때",
+     "desc": "물기를 완전히 말리기 전에",
+     "icon": "💧"
+    },
+    {
+     "title": "히알루론산 세럼 먼저",
+     "desc": "다른 제품보다 먼저 펴 바르기",
+     "icon": "photo"
+    },
+    {
+     "title": "도톰한 크림으로 덮기",
+     "desc": "수분이 날아가지 않게 잠가 줘요",
+     "icon": "🧴"
+    }
+   ],
+   "note_label": "레시피",
+   "image": "assets/cards/2026-11-10_04_how_to_use.png"
+  },
+  {
+   "no": 5,
+   "layout": "list",
+   "title": "추천 세럼 3가지",
+   "body": "Allure 추천 중 3가지예요. 국내 판매처와 가격은 직접 확인해 주세요.",
+   "display_title": "Allure 추천 [[세럼 3가지]]",
+   "label": "INGREDIENTS",
+   "eyebrow": "해결 재료 · 내게 맞는 기준으로",
+   "items": [
+    {
+     "name": "모공 걱정 · 아누아 히알루론산",
+     "desc": "논코메도제닉 테스트 완료 · 묽고 산뜻한 제형",
+     "photo": "assets/products/2026-11-10_ha_anua_fit.jpg"
+    },
+    {
+     "name": "민감 피부 · 라로슈포제 히알루 B5",
+     "desc": "히알루 B5 세럼 · 지금은 새 이름으로 판매",
+     "photo": "assets/products/2026-11-10_ha_lrp_fit.jpg"
+    },
+    {
+     "name": "복합성 · 디오디너리 히알루론산",
+     "desc": "히알루론산 2% + B5 · Allure ‘복합성 피부’ 추천",
+     "photo": "assets/products/2026-11-10_ha_to_fit.jpg"
+    }
+   ],
+   "note_label": "참고"
+  },
+  {
+   "no": 6,
+   "layout": "compare",
+   "title": "예민 피부라면?",
+   "body": "히알루론산 자체는 순한 편이에요. 예민하면 향료·색소 같은 다른 성분을 먼저 확인하세요.",
+   "display_title": "예민한 피부라면?\n[[이것만 체크]]",
+   "label": "CHECK",
+   "eyebrow": "피부과 전문의 조언",
+   "left": {
+    "tag": "👍 대부분 OK",
+    "icon": "✅",
+    "title": "순한 성분\n부작용 보고 없음",
+    "desc": "대부분의 피부 타입에 맞는 편이래요"
+   },
+   "right": {
+    "tag": "🔎 예민하다면",
+    "icon": "🏷️",
+    "title": "향료·색소\n먼저 확인",
+    "desc": "자극은 함께 든 다른 성분 때문일 수 있어요"
+   },
+   "tip_label": "참고",
+   "tip": "예민한 피부는 새 제품을 쓰기 전에 피부과 전문의와 상담하래요.",
+   "image": "assets/cards/2026-11-10_06_sensitive_check.png"
+  },
+  {
+   "no": 7,
+   "layout": "recap",
+   "title": "보습 레시피 정리",
+   "body": "출처: Allure, 「9 Best Hyaluronic Acid Serums 2026 for Dry, Dehydrated Skin」, 2026.11.09 갱신 / Anua 공식몰 제품 페이지, 2026.11.10 확인\n팔로우하면 뷰티 고민을 레시피처럼 쉽게 풀어 드려요",
+   "display_title": "당김 →\n[[보습]] 레시피",
+   "rows": [
+    [
+     "당김·건조",
+     "히알루론산 세럼"
+    ],
+    [
+     "언제?",
+     "세안 후 살짝 촉촉할 때"
+    ],
+    [
+     "순서",
+     "세럼 먼저 → 크림으로 잠그기"
+    ],
+    [
+     "예민하면",
+     "향료·색소 확인"
+    ]
+   ],
+   "cta": "🔖 저장 · 팔로우하면 뷰티 고민을 레시피처럼 쉽게 풀어 드려요",
+   "caution": "※ 국내 판매처·가격은 직접 확인하세요 · 피부 반응은 사람마다 달라요"
+  }
  ],
- "caption":{
-  "hook":"피부가 당기고 예민하게 느껴지는 날, 크림을 뿌린다면? 🫧",
-  "summary":[
-   "에이피 뷰티가 11월 5일 '듀얼 리페어 리프트 M.D. 크림 미스트' 출시 소식을 알렸어요",
-   "피부과 관리 뒤 건조하고 예민해진 피부를 생각해 만든 미스트래요 (평소 스킨케어에도 OK)",
-   "뿌릴 땐 눈 감고 20~30cm 떨어져 2~3번, 손바닥으로 톡톡 (일반 미스트 팁)"
+ "caption": {
+  "hook": "크림을 발라도 금방 당긴다면, 바르는 순서부터 바꿔 봐요 💧",
+  "summary": [
+   "히알루론산은 수분을 붙잡아 두는 보습 성분이에요",
+   "피부과 전문의 레시피: 세안 후 살짝 촉촉할 때 세럼 먼저 → 도톰한 크림으로 잠그기",
+   "Allure 추천 세럼 중 아누아·라로슈포제·디오디너리 3가지를 골라 봤어요"
   ],
-  "cta":"피부가 예민한 날 다시 보려면 저장하고, 같은 고민 있는 친구에게 공유해 주세요 🔖",
-  "follow":"팔로우하면 뷰티 고민을 레시피처럼 쉽게 풀어 드려요",
-  "note":"5장 사용법은 일반 미스트 팁이에요 (CJ온스타일 미스트 사용법). 이 제품의 정확한 사용 순서와 가격은 제품 상세 페이지에서 확인해 주세요. 사용감은 사람마다 다를 수 있어요. 사진: 아모레퍼시픽 (코스인코리아 기사 사진)",
-  "hashtags":["스킨케어","뷰티신상","보습루틴","뷰티초보","에이피뷰티","크림미스트","PDRN","듀얼리페어리프트"]
+  "cta": "오늘 밤 세안 후에 따라 하려면 저장하고, 건조한 친구에게 공유해 주세요 🔖",
+  "follow": "팔로우하면 뷰티 고민을 레시피처럼 쉽게 풀어 드려요",
+  "note": "국내 판매처와 가격은 직접 확인해 주세요. 예민한 피부는 새 제품을 쓰기 전에 전문의와 상담하세요. 사진: 각 브랜드 공식몰",
+  "hashtags": [
+   "스킨케어",
+   "겨울보습",
+   "뷰티초보",
+   "히알루론산",
+   "히알루론산세럼",
+   "보습루틴",
+   "아누아",
+   "스킨케어순서"
+  ]
  }
 }

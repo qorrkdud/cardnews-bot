@@ -43,6 +43,11 @@ TARGET_KW = [
     "skincare", "skin care", "cleanser", "cleansing", "sunscreen", "spf", "serum",
     "moisturizer", "toner", "routine", "olive young", "k-beauty", "korean beauty",
     "launch", "new product", "acne", "pore", "dry skin",
+    # 각질 관리 (2026-11-06 추가)
+    "각질", "필링", "스크럽", "토너패드", "피부결", "PHA", "AHA", "BHA",
+    "exfoliant", "exfoliants", "exfoliator", "exfoliators", "exfoliation", "exfoliating",
+    "peel", "peeling", "toner pad", "toner pads", "glass skin", "korean skincare", "korean skin care",
+    "smoothing", "brightening",
 ]
 INDUSTRY_KW = [  # 초보 타깃에게는 덜 흥미로운 업계 뉴스
     "실적", "매출", "영업이익", "순이익", "주가", "증권", "투자", "인수", "합병", "상장",
@@ -55,6 +60,7 @@ VISUAL_KW = [
     "제형", "텍스처", "컬러", "색상", "패키지", "용기", "사용법", "방법", "단계", "순서", "팁",
     "비포", "애프터", "전후", "신제품", "출시", "texture", "shade", "color", "packaging",
     "how to", "step", "tips", "before and after", "launch",
+    "추천", "비교", "best", "pads", "skin type",   # 제품 모아 보기·비교 글 (2026-11-06 추가)
 ]
 SPECULATIVE_KW = [
     "전망", "예정", "알려졌다", "것으로 보인다", "루머", "소문", "가능성",
@@ -76,6 +82,10 @@ EN_TO_KO = {
     "skincare": "스킨케어", "skin care": "스킨케어", "acne": "트러블", "pore": "모공",
     "dry skin": "건조 피부", "olive young": "올리브영", "k-beauty": "K뷰티",
     "korean beauty": "K뷰티", "launch": "신상", "new product": "신상",
+    "exfoliant": "각질", "exfoliants": "각질", "exfoliator": "각질", "exfoliators": "각질",
+    "exfoliation": "각질", "exfoliating": "각질", "peel": "필링", "peeling": "필링",
+    "toner pad": "토너 패드", "toner pads": "토너 패드", "glass skin": "물광 피부",
+    "korean skincare": "K스킨케어", "korean skin care": "K스킨케어", "smoothing": "피부결", "brightening": "톤 케어",
 }
 
 
@@ -286,6 +296,17 @@ def tokens(title):
     return {w for w in re.findall(r"[가-힣A-Za-z0-9]{2,}", title.lower())}
 
 
+def recent_pick_titles(today, days=7):
+    """오늘을 뺀 최근 며칠 동안 picks 파일에 올랐던 소식 제목들"""
+    titles = []
+    t0 = datetime.strptime(today, "%Y-%m-%d")
+    for k in range(1, days + 1):
+        f = PICK_DIR / f"{(t0 - timedelta(days=k)).strftime('%Y-%m-%d')}.md"
+        if f.exists():
+            titles += re.findall(r"^## \d+위 · \d+/25점 · (.+)$", f.read_text(encoding="utf-8"), re.M)
+    return titles
+
+
 def same_story(a, b):
     """제목이 많이 겹치면 같은 소식으로 봅니다 (다른 사이트의 같은 기사)."""
     ta, tb = tokens(a["title"]), tokens(b["title"])
@@ -456,10 +477,14 @@ def main():
     # ---- picks/날짜.md
     for it in cands:
         score(it, now)
-    top = []
+    recent = recent_pick_titles(today)
+    top, skipped_recent = [], []
     for it in sorted(cands, key=lambda x: (-x["total"], -x["pub"].timestamp())):
         if not it["t_hits"]:
             continue  # 뷰티와 관련된 단어가 하나도 없으면 추천하지 않기
+        if any(same_story(it, {"title": r}) for r in recent):
+            skipped_recent.append(it["title"])
+            continue  # 최근 7일 안에 이미 추천한 소식과 같은 내용이면 건너뛰기 (다른 사이트 기사여도)
         if any(same_story(it, t) for t in top):
             continue  # 같은 소식이 이미 뽑혔으면 건너뛰기
         top.append(it)
@@ -468,6 +493,9 @@ def main():
     pl = [f"# {today} 추천 TOP {TOP_N}", "",
           "> 키워드로 매긴 **1차 점수**예요. 최종 선택은 직접 해 주세요.",
           "> 기준: 관심도 · 한장요약 · 이미지 · 사실확인 · 시의성 (각 5점, 만점 25점)", ""]
+    if skipped_recent:
+        pl += ["> 최근 7일 안에 추천했던 소식과 같은 내용이라 뺀 글: "
+               + " / ".join(dict.fromkeys(skipped_recent)), ""]
     for i, it in enumerate(top, 1):
         sc = " · ".join(f"{k} {v}" for k, v in it["scores"].items())
         pl += [f"## {i}위 · {it['total']}/25점 · {it['title']}", "",
@@ -493,6 +521,8 @@ def main():
         print(f"   가제: {draft_title(it)}  ({it['source']})")
     if not top:
         print("  오늘은 추천할 후보가 없어요.")
+    if skipped_recent:
+        print(f"\n※ 최근에 추천했던 소식과 겹치는 글 {len(set(skipped_recent))}개는 뺐어요.")
     print("\n저장한 파일")
     print(f"  후보: {cand_path.relative_to(ROOT)}  ({len(cands)}개)")
     print(f"  추천: {pick_path.relative_to(ROOT)}")
