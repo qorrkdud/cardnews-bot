@@ -15,15 +15,20 @@ function Write-Log($msg) {
 & $git add -A 2>$null
 & $git diff --cached --quiet
 if ($LASTEXITCODE -eq 0) {
-    Write-Log "바뀐 내용이 없어서 올리지 않았어요."
-    exit 0
-}
-
-$count = (& $git diff --cached --name-only | Measure-Object -Line).Lines
-& $git commit -q -m "$today 자동 업로드 (파일 $count 개)" 2>$null
-if ($LASTEXITCODE -ne 0) {
-    Write-Log "커밋 실패"
-    exit 1
+    # 새 변경은 없지만, 전에 올리기에 실패한 커밋이 남아 있으면 다시 올립니다
+    $ahead = & $git rev-list --count "@{u}..HEAD" 2>$null
+    if (-not $ahead -or [int]$ahead -eq 0) {
+        Write-Log "바뀐 내용이 없어서 올리지 않았어요."
+        exit 0
+    }
+    $count = "지난번에 못 올린"
+} else {
+    $count = (& $git diff --cached --name-only | Measure-Object -Line).Lines
+    & $git commit -q -m "$today 자동 업로드 (파일 $count 개)" 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Log "커밋 실패"
+        exit 1
+    }
 }
 
 $out = & $git push -q 2>&1
